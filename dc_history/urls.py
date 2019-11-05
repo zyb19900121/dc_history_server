@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('getDynastyList', views.getDynastyList, name='getDynastyList'),
     path('saveDynasty', views.saveDynasty, name='saveDynasty'),
+    path('removeDynasty', views.removeDynasty, name='removeDynasty'),
 ]

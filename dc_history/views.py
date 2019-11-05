@@ -15,10 +15,8 @@ def formatResponse(list, total):
               "total": total}
     return result
 
-
 def index(request):
     return HttpResponse("DC_History server启动成功！")
-
 
 def getDynastyList(request):
     if(request.method == 'GET'):
@@ -37,7 +35,6 @@ def getDynastyList(request):
         finally:
             return JsonResponse(result, safe=False)
 
-
 def saveDynasty(request):
     if(request.method == 'POST'):
         status_code = "9999"
@@ -45,6 +42,22 @@ def saveDynasty(request):
         try:
             newDynasty = Dynasty(**json.loads(request.body))
             newDynasty.save()
+        except Exception as e:
+            status_code = "0000"
+            msg = str(e)
+        finally:
+            result = {"status_code": status_code, "msg": msg}
+            return HttpResponse(json.dumps(result))
+
+def removeDynasty(request):
+    if(request.method == "POST"):
+        status_code = "9999"
+        msg = "success"
+        try:
+            ids = json.loads(request.body)["ids"]
+            for id in ids:
+                Dynasty.objects.filter(id=id).delete()
+                pass
         except Exception as e:
             status_code = "0000"
             msg = str(e)
