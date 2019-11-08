@@ -10,13 +10,15 @@ from .models import Dynasty
 
 
 def formatResponse(list, total):
-    result = {'status_code': 8888,
+    result = {'status_code': "8888",
               'data': serializers.serialize('python', list),
               "total": total}
     return result
 
+
 def index(request):
     return HttpResponse("DC_History server启动成功！")
+
 
 def getDynastyList(request):
     if(request.method == 'GET'):
@@ -35,9 +37,10 @@ def getDynastyList(request):
         finally:
             return JsonResponse(result, safe=False)
 
+
 def saveDynasty(request):
     if(request.method == 'POST'):
-        status_code = "9999"
+        status_code = "8888"
         msg = "success"
         try:
             newDynasty = Dynasty(**json.loads(request.body))
@@ -49,9 +52,10 @@ def saveDynasty(request):
             result = {"status_code": status_code, "msg": msg}
             return HttpResponse(json.dumps(result))
 
+
 def removeDynasty(request):
     if(request.method == "POST"):
-        status_code = "9999"
+        status_code = "8888"
         msg = "success"
         try:
             ids = json.loads(request.body)["ids"]
