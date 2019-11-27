@@ -27,7 +27,8 @@ def getDynastyList(request):
             pageSize = int(request.GET.get('pageSize')) or 10
             offset = (currentPage - 1) * pageSize
             limit = offset + pageSize
-            dynastyList = Dynasty.objects.all()[offset:limit]
+            dynastyList = Dynasty.objects.all().order_by(
+                'dynasty_order', '-date_update')[offset:limit]
             total = Dynasty.objects.count()
             result = formatResponse(dynastyList, total)
         except Exception as e:
